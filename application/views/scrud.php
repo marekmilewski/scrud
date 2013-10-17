@@ -215,33 +215,7 @@ switch($field['type']){
                   </script>';
     break;
 
-    case 'datetime': 
-        $id=rand();
-        echo '
-        <div id="datetime'.$id.'" class="input-group">
-        <input data-format="dd/MM/yyyy hh:mm:ss" type="text" class="form-control">
-        <span class="input-group-btn"><button class="btn btn-default add-on" type="button"><span class="glyphicon glyphicon-calendar"></span></button></span>
-        </div>';
-        echo '<script type="text/javascript">
-                    $(function() {
-                        $("#datetime'.$id.'").datetimepicker({pickDate: true, pickTime: true});
-                    });
-                  </script>';
-    break;
 
-    case 'time':
-        $id=rand();
-        echo '
-        <div id="time'.$id.'" class="input-group">
-        <input data-format="hh:mm:ss" type="text" class="form-control">
-        <span class="input-group-btn"><button class="btn btn-default add-on" type="button"><span class="glyphicon glyphicon-time"></span></button></span>
-        </div>';
-        echo '<script type="text/javascript">
-                    $(function() {
-                        $("#time'.$id.'").datetimepicker({pickDate: false});
-                    });
-                  </script>';
-    break;
 
 }  
 
