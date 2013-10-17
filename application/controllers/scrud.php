@@ -41,8 +41,8 @@ public function add(){
     }
     
     
-}
 
+    
 public function edit(){
 
     $fields=$this->scrud_model->getFields($this->scrudID);
