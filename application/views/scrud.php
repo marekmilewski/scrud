@@ -203,19 +203,48 @@ switch($field['type']){
     
     case 'date':
         $id=rand();
-        echo '
-        <div id="date'.$id.'" class="input-group">
-        <input data-format="yyyy-MM-dd" type="text" class="form-control">
-        <span class="input-group-btn add-on"><button class="btn btn-default" type="button"><span class="glyphicon glyphicon-calendar"></span></button></span>
-        </div>';
+        echo '<div class="form-group">
+                <div class="input-group date" id="date'.$id.'">
+                    <input type="text" class="form-control" data-format="yyyy-MM-dd" />
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+';
         echo '<script type="text/javascript">
-                    $(function() {
-                        $("#date'.$id.'").datetimepicker({pickTime: false});
-                    });
+                    $("#date'.$id.'").datetimepicker({pickTime: false});
                   </script>';
     break;
 
+    case 'time':
+        $id=rand();
+        echo '<div class="form-group">
+                <div class="input-group date" id="time'.$id.'">
+                    <input type="text" class="form-control" />
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span>
+                    </span>
+                </div>
+            </div>
+';
+        echo '<script type="text/javascript">
+                    $("#time'.$id.'").datetimepicker({pickDate: false,pickSeconds: false});
+                  </script>';
+    break;
 
+    case 'datetime':
+        $id=rand();
+        echo '<div class="form-group">
+                <div class="input-group date" id="datetime'.$id.'">
+                    <input type="text" class="form-control" />
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span>
+                    </span>
+                </div>
+            </div>
+';
+        echo '<script type="text/javascript">
+                    $("#datetime'.$id.'").datetimepicker({pickDate: true, pickTime: true, pickSeconds: true});
+                  </script>';
+    break;
 
 }  
 

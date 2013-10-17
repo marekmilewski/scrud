@@ -18,7 +18,8 @@
     <script type="text/javascript" src="<?php echo base_url();?>js/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url();?>ckeditor/ckeditor.js"></script>
     <script type="text/javascript" src="<?php echo base_url();?>js/scrud.js"></script>
-    <script type="text/javascript" src="<?php echo base_url();?>js/bootstrap-datepicker.js"></script>
+    <script type="text/javascript" src="<?php echo base_url();?>js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="<?php echo base_url();?>js/bootstrap-datetimepicker.js"></script>
     
     <script type="text/javascript">
         var BASEURL='<?php echo base_url();?>'
