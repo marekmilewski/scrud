@@ -2,3 +2,5 @@
 
 
 $config['brand']='';
+$config['fixed']='navbar-fixed-top';      // [navbar-fixed-top, navbar-fixed-bottom]
+$config['style']='navbar-inverse'       // [navbar-default, navbar-inverse]
