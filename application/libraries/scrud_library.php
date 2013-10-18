@@ -198,7 +198,7 @@ class scrud_library {
     private function getScrudID(){
         $this->scrudID=$this->CI->uri->segment(3);
         if(!$this->scrudID)
-            die('Brak scrudID !!!');
+            die('No scrudID !!!');
         else
             return $this->scrudID;
     }    
