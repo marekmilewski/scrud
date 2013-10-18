@@ -49,12 +49,11 @@ private function renderMenu(){
                 
                 if(count($subitems)>0){
                     $out.='<li class="dropdown">';
-                    $out.='<a href="#" class="dropdown-toggle" data-toggle="dropdown">'.$item['name'].' <b class="caret"></b></a>';
-                    $out.='<ul class="dropdown-menu">';
+                    $out.='<a href="#"  class="dropdown-toggle" data-toggle="dropdown">'.$item['name'].' <b class="caret"></b></a>';
+                    $out.='<ul class="dropdown-menu" role="menu">';
                                   
                     foreach($subitems as $subitem)
                         $out.='<li><a href="'.base_url().$subitem['link'].'">'.$subitem['name'].'</a></li>';
-                    
                     
                     $out.='</ul>';
                     $out.='</li>';
@@ -98,6 +97,7 @@ private function renderMenu(){
         else{
             $data=$this->scrud_library->getFormData();
             $this->scrud_library->addRecord($data);
+            $this->renderMenu();
             redirect($this->session->userdata('referer'));
         }
             
@@ -115,6 +115,7 @@ private function renderMenu(){
         else{
             $data=$this->scrud_library->getFormData();
             $this->scrud_library->updateRecord($data);
+            $this->renderMenu();
             redirect($this->session->userdata('referer'));
         }
             
@@ -123,6 +124,7 @@ private function renderMenu(){
     
     public function delete(){
         $this->scrud_library->deleteRecord();
+        $this->renderMenu();
         redirect($this->session->userdata('referer'));
     }
     
