@@ -3,11 +3,8 @@
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class menu_creator extends CI_Controller{
-    
-private $scrudID;
-private $limit;
 
-public function __construct() {
+public function __construct(){
     parent::__construct();
     $this->load->library('scrud_library');
     $this->config->load('menu_creator');
