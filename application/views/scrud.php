@@ -114,7 +114,7 @@ if($errors!='')
   <div class="panel-body">
 
 
-    <form method="post" action="<?php echo current_url();?>" class="form-horizontal" enctype="multipart/form-data" role="form">
+<form method="post" action="<?php echo current_url();?>" class="form-horizontal" enctype="multipart/form-data" role="form">
     
 <?php
 foreach($fields as $field) { ?>
@@ -207,7 +207,7 @@ switch($field['type']){
     
     case 'date':
         $id=rand();
-        echo '<div class="form-group">
+        echo '<div class="form-group date">
                 <div class="input-group date" id="date'.$id.'">
                     <input type="text" class="form-control input-sm" data-format="yyyy-MM-dd" />
                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
@@ -222,7 +222,7 @@ switch($field['type']){
 
     case 'time':
         $id=rand();
-        echo '<div class="form-group">
+        echo '<div class="form-group date">
                 <div class="input-group date" id="time'.$id.'">
                     <input type="text" class="form-control input-sm" />
                     <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span>
@@ -237,7 +237,7 @@ switch($field['type']){
 
     case 'datetime':
         $id=rand();
-        echo '<div class="form-group">
+        echo '<div class="form-group date">
                 <div class="input-group date" id="datetime'.$id.'">
                     <input type="text" class="form-control input-sm" />
                     <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span>

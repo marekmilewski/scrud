@@ -79,7 +79,7 @@ class scrud_library {
     public function isValidForm(){
         $form_valid=false;
         
-        $this->form_fields=$this->CI->scrud_model->getFields($this->scrudID);
+        $this->form_fields=$this->CI->scrud_model->getFields($this->scrudID);       
         $this->CI->load->library('form_validation');
         $this->CI->form_validation->set_error_delimiters('','');
         
