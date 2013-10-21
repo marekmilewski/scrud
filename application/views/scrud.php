@@ -62,12 +62,12 @@ if ($this->uri->segment(2,'view')=='view'){
     
 <table class="table table-hover table-striped">
 <thead>
-<tr style="color:#999999;background-color:#222222;font-size:13px;font-weight:normal;">
-<th style="text-align:center;border-bottom:0;width:5%;">Edycja</th> 
+<tr>
+<th class="table_action">Edycja</th> 
 <?php foreach($columns as $column){ ?>
-<th style="text-align:center;border-bottom:0;width:<?php echo $column['width'];?>%;"><?php echo $column['description'];?></th>
+<th style="width:<?php echo $column['width'];?>%;"><?php echo $column['description'];?></th>
 <?php } ?>
-<th style="text-align:center;border-bottom:0;width:5%;">Usuń</th> 
+<th class="table_action">Usuń</th> 
 </tr>
 </thead>    
     
