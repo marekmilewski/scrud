@@ -108,8 +108,12 @@ if($errors!='')
     echo '<div class="alert alert-dismissable alert-danger">'.$errors.'</div>';
 
 ?>
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">Panel heading</div>
+  <div class="panel-body">
 
-<div class="form">
+
     <form method="post" action="<?php echo current_url();?>" class="form-horizontal" enctype="multipart/form-data" role="form">
     
 <?php
@@ -124,13 +128,13 @@ switch($field['type']){
     case 'text':
     case 'password':
         $value=(isset($data[$field['name']]) && $data[$field['name']]!='') ? set_value($field['name'], $data[$field['name']]) : set_value($field['name'], $field['default']);
-        echo '<input type="'.$field['type'].'" class="form-control" name="'.$field['name'].'" id="'.$field['name'].'" placeholder="'.$field['label'].'" value="'.$value.'"/>';
+        echo '<input type="'.$field['type'].'" class="form-control input-sm" name="'.$field['name'].'" id="'.$field['name'].'" placeholder="'.$field['label'].'" value="'.$value.'"/>';
     break;
     case 'select':
         $sdata=array();
         $tmp=explode(';',$field['data']);
         
-        echo '<select name="'.$field['name'].'" class="form-control">'; 
+        echo '<select name="'.$field['name'].'" class="form-control input-sm">'; 
         $default=(!$this->input->post()) ? $field['default'] : $this->input->post($field['name']);
         
         echo '<option value="0">--- Wybierz ---</option>';
@@ -165,7 +169,7 @@ switch($field['type']){
 
     case 'textarea':
         $value=(isset($data[$field['name']]) && $data[$field['name']]!='') ? set_value($field['name'], $data[$field['name']]) : set_value($field['name'], $field['default']);
-        echo '<textarea class="form-control" id="'.$field['name'].'" name="'.$field['name'].'">'.$value.'</textarea>';
+        echo '<textarea class="form-control input-sm" id="'.$field['name'].'" name="'.$field['name'].'">'.$value.'</textarea>';
     break;
 
     case 'editor':
@@ -205,7 +209,7 @@ switch($field['type']){
         $id=rand();
         echo '<div class="form-group">
                 <div class="input-group date" id="date'.$id.'">
-                    <input type="text" class="form-control" data-format="yyyy-MM-dd" />
+                    <input type="text" class="form-control input-sm" data-format="yyyy-MM-dd" />
                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                     </span>
                 </div>
@@ -220,7 +224,7 @@ switch($field['type']){
         $id=rand();
         echo '<div class="form-group">
                 <div class="input-group date" id="time'.$id.'">
-                    <input type="text" class="form-control" />
+                    <input type="text" class="form-control input-sm" />
                     <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span>
                     </span>
                 </div>
@@ -235,7 +239,7 @@ switch($field['type']){
         $id=rand();
         echo '<div class="form-group">
                 <div class="input-group date" id="datetime'.$id.'">
-                    <input type="text" class="form-control" />
+                    <input type="text" class="form-control input-sm" />
                     <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span>
                     </span>
                 </div>
@@ -264,8 +268,10 @@ if(form_error($field['name'])!='')
 </div>        
         
     </form>
-</div>
 
+
+  </div>
+</div>
 
 <?php } ?>
 
