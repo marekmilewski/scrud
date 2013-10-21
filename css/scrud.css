@@ -9,11 +9,12 @@
 
 
 table thead tr{color:#999999;background-color:#222222;font-size:13px;font-weight:normal;}
-table thead th{text-align:center;border-bottom:0;}
+.table thead>tr>th{text-align:center;border-bottom:0;}
 table_action{width:5%;}
 
 th{font-weight:normal;}
 table td{font-size:13px;}
 
 label{font-size:13px;font-weight:normal;}
+.date{padding-left:8px;}
 
