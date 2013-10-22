@@ -3,8 +3,4 @@
 echo $scrud_data;
 ?>
 
-
-
-
-
 <?php $this->load->view('footer'); ?>
