@@ -5,7 +5,7 @@
 <title>Bootstrap 101 Template</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Bootstrap -->
-<link href="<?php echo base_url();?>css/bootstrap.css" rel="stylesheet">
+<link href="<?php echo base_url();?>css/bootstrap.min.css" rel="stylesheet">
     
 <!--[if lt IE 9]>
     <script src="<?php echo base_url();?>js/html5shiv.js"></script>
@@ -24,7 +24,7 @@
             <div class="panel-heading"><h5 style="margin:0;padding:0;">Admin CMS</h5></div>
             <div class="panel-body" style="padding:30px;">
                 
-            <form action="<?php echo base_url().'login'; ?>" method="post" role="form">
+            <form action="<?php echo base_url().'admin/login'; ?>" method="post" role="form">
                 <div class="form-group <?php if(form_error('username')!='') echo 'has-error'; ?>" style="margin:0;">
                     <label for="username" style="font-size:13px;font-weight:normal;">Adres email</label>
                         <div class="input-group input-group-sm">

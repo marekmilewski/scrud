@@ -16,9 +16,8 @@ class scrud_library {
     public function __construct() {
         $this->CI =& get_instance();
         $this->CI->load->model('scrud_model');
-        
         $this->scrudID=$this->getScrudID();
-        $this->params=$this->CI->uri->uri_to_assoc(4);
+        $this->params=$this->CI->uri->uri_to_assoc(6);
         $this->limit=20;
         
         $this->form_data=NULL;
@@ -72,7 +71,7 @@ class scrud_library {
         $this->CI->pagination->initialize($config);
         $pagination=$this->CI->pagination->create_links();
 
-        return $this->CI->load->view('scrud',array('columns'=>$columns,'keys'=>$keys,'search'=>$search_terms,'data'=>$data,'description'=>$description,'pagination'=>$pagination,'scrudID'=>$this->scrudID ),true );
+        return $this->CI->load->view('admin/scrud',array('columns'=>$columns,'keys'=>$keys,'search'=>$search_terms,'data'=>$data,'description'=>$description,'pagination'=>$pagination,'scrudID'=>$this->scrudID ),true );
     }
     
     
@@ -188,7 +187,7 @@ class scrud_library {
     
     
     private function getKeysFromURL(){
-        $keys=$this->CI->uri->uri_to_assoc(4);
+        $keys=$this->CI->uri->uri_to_assoc(5);
         if(isset($keys['from']) && $keys['from']!='')
             unset($keys['from']);    
     
@@ -196,7 +195,7 @@ class scrud_library {
     }
 
     private function getScrudID(){
-        $this->scrudID=$this->CI->uri->segment(3);
+        $this->scrudID=$this->CI->uri->segment(4);
         if(!$this->scrudID)
             die('No scrudID !!!');
         else

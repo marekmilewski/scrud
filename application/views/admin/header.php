@@ -26,7 +26,7 @@
     </head>
 <body>
     
-<?php $this->load->view('menu');?>    
+<?php $this->load->view('admin/menu');?>    
 <div class="container">
     
     <div style="height:70px;width:100%;"></div>    

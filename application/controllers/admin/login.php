@@ -21,14 +21,14 @@ public function index(){
     
     if ($this->form_validation->run() == FALSE){
         $errors = $this->ion_auth->errors_array();        
-        $this->load->view( $this->router->fetch_class(),$errors );
+        $this->load->view( 'admin/'.$this->router->fetch_class(),$errors );
     }
     else{
-        if($this->ion_auth->login($this->input->post('username'), $this->input->post('password')))
-                redirect(base_url().'welcome');
+        if($this->ion_auth->login(trim($this->input->post('username')), trim($this->input->post('password'))) )
+                redirect(base_url().'admin/example/view/19');
         else{
 
-            $this->load->view( $this->router->fetch_class(),$this->ion_auth->errors_array() );
+            $this->load->view( 'admin/'.$this->router->fetch_class(),$this->ion_auth->errors_array() );
         }
     }
     

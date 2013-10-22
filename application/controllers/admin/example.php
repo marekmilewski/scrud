@@ -14,7 +14,7 @@ class example extends CI_Controller{
     
     public function view(){
         $scrud_data=$this->scrud_library->renderTable();
-        $this->load->view('example',array('scrud_data'=>$scrud_data ));
+        $this->load->view('admin/example',array('scrud_data'=>$scrud_data ));
     }
     
     
