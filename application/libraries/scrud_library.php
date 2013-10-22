@@ -41,7 +41,7 @@ class scrud_library {
         $columns=$this->CI->scrud_model->getColumns($this->scrudID);
         $keys=$this->CI->scrud_model->getKeys($this->scrudID);
         $search_terms=$this->CI->scrud_model->getSearch($this->scrudID);        
-        
+
         if(!$this->CI->input->post('search')){
             $search_terms=NULL;
             $search_value=NULL;
