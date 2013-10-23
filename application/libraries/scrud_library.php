@@ -57,7 +57,7 @@ class scrud_library {
         foreach($keys as $key)
             $cols[].=$key['name'];
     
-        $cols=  array_unique($cols);
+        $cols= array_unique($cols);
     
     
         $data=$this->CI->scrud_model->getTableData($this->scrudID,$cols,$this->params,$search_terms,$search_value,$this->limit,$from);
