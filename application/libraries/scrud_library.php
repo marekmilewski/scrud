@@ -5,9 +5,8 @@ class scrud_library {
     private $CI;
     private $scrudID;
     private $params;
-    private $limit;
-    
-    
+
+
     private $form_fields;
     private $form_data;
     private $form_upload_errors;
@@ -16,11 +15,10 @@ class scrud_library {
     public function __construct() {
         $this->CI =& get_instance();
         $this->CI->load->model('scrud_model');
-        $this->scrudID=$this->getScrudID();
-        $this->params=$this->CI->uri->uri_to_assoc( $this->CI->config->item('params_start_segment') );
+        
         $this->CI->config->load('scrud');
-        
-        
+        $this->scrudID=$this->getScrudID();
+        $this->params=$this->CI->uri->uri_to_assoc( $this->CI->config->item('params_start_segment') );      
         $this->form_data=NULL;
         $this->upload_errors=NULL;
     }
@@ -61,17 +59,17 @@ class scrud_library {
         $cols= array_unique($cols);
     
     
-        $data=$this->CI->scrud_model->getTableData($this->scrudID,$cols,$this->params,$search_terms,$search_value,$this->limit,$from);
+        $data=$this->CI->scrud_model->getTableData($this->scrudID,$cols,$this->params,$search_terms,$search_value,$this->CI->config->item('scrud_limit'),$from);
 
         $this->CI->load->library('pagination');
-        $config['base_url'] = base_url().'admin/'.$this->CI->router->fetch_class().'/view/'.$this->scrudID.'/from/';
+        $config['base_url'] = base_url().$this->CI->config->item('controllers_directory').$this->CI->router->fetch_class().'/view/'.$this->scrudID.'/from/';
         $config['total_rows'] = $this->CI->scrud_model->countResults($this->scrudID);
         $config['per_page'] = $this->CI->config->item('scrud_limit');
         $config['uri_segment']=$this->CI->config->item('params_start_segment')-1;
     
         $this->CI->pagination->initialize($config);
         $pagination=$this->CI->pagination->create_links();
-        return $this->CI->load->view('admin/scrud',array('columns'=>$columns,'keys'=>$keys,'search'=>$search_terms,'data'=>$data,'description'=>$description,'pagination'=>$pagination,'scrudID'=>$this->scrudID ),true );
+        return $this->CI->load->view( $this->CI->config->item('views_directory').'scrud',array('columns'=>$columns,'keys'=>$keys,'search'=>$search_terms,'data'=>$data,'description'=>$description,'pagination'=>$pagination,'scrudID'=>$this->scrudID ),true );
     }
     
     
@@ -152,7 +150,7 @@ class scrud_library {
         else
             $data=NULL;
 
-        return $this->CI->load->view('admin/scrud',array('fields'=>$this->form_fields, 'data'=>$data, 'errors'=>$errors ),true );
+        return $this->CI->load->view($this->CI->config->item('views_directory').'scrud',array('fields'=>$this->form_fields, 'data'=>$data, 'errors'=>$errors ),true );
     }
     
     
