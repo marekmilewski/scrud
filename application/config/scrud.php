@@ -3,7 +3,7 @@
 
 $config['controllers_directory']='admin/';
 $config['views_directory']='admin/';
-$config['action_segment']=2;
+$config['action_segment']=3;
 $config['scrudID_segment']=4;
 $config['params_start_segment']=5;
 

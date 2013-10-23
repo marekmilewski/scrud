@@ -18,7 +18,8 @@ class scrud_library {
         
         $this->CI->config->load('scrud');
         $this->scrudID=$this->getScrudID();
-        $this->params=$this->CI->uri->uri_to_assoc( $this->CI->config->item('params_start_segment') );      
+        $this->params=$this->CI->uri->uri_to_assoc( $this->CI->config->item('params_start_segment') );
+
         $this->form_data=NULL;
         $this->upload_errors=NULL;
     }

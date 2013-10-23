@@ -26,16 +26,16 @@ function getTableKeys($keys,$data){
     return implode('/',$out);
 }
 
-if ($this->uri->segment(3,'view')=='view'){
+if ($this->uri->segment( $this->config->item('action_segment'),'view')=='view'){
 ?>    
 
 <div class="row">
     
-<div class="col-md-offset-3 col-md-6 center"><a href="<?php echo base_url().'admin/'.$this->router->fetch_class().'/add/'.$scrudID; ?>" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-plus"></span>&nbsp;Dodaj</a></div> 
+<div class="col-md-offset-3 col-md-6 center"><a href="<?php echo base_url().$this->config->item('controllers_directory').$this->router->fetch_class().'/add/'.$scrudID; ?>" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-plus"></span>&nbsp;Dodaj</a></div> 
 
 <?php if(!empty($search)) { ?>
   <div class="col-lg-3">
-    <form method="post" action="<?php echo base_url().'admin/'.$this->router->fetch_class().'/view/'.$scrudID ?>">  
+    <form method="post" action="<?php echo base_url().$this->config->item('controllers_directory').$this->router->fetch_class().'/view/'.$scrudID ?>">  
     <div class="input-group">
         <input type="text" name="search" class="form-control input-sm">
         <span class="input-group-btn">
@@ -78,12 +78,12 @@ if ($this->uri->segment(3,'view')=='view'){
 if(is_array($data) && sizeof($data)>0) 
 foreach($data as $key=>$row){ ?>
 <tr>    
-<td><a class="btn btn-success btn-xs pull-left" href="<?php echo base_url().'admin/'.$this->router->fetch_class().'/edit/'.$scrudID.'/'.getTableKeys($keys,$row); ?>"><span class="glyphicon glyphicon-edit"></span>&nbsp;Edycja</a></td>
+<td><a class="btn btn-success btn-xs pull-left" href="<?php echo base_url().$this->config->item('controllers_directory').$this->router->fetch_class().'/edit/'.$scrudID.'/'.getTableKeys($keys,$row); ?>"><span class="glyphicon glyphicon-edit"></span>&nbsp;Edycja</a></td>
 <?php foreach($columns as $column){ ?>
 <td <?php if(isset($column['align']) && $column['align']!='') echo 'class="'.$column['align'].'"'; ?>><?php if(isset($column['params']) && $column['params']!='') echo prepareCellData($scrudID,$this->router->fetch_class(),$row,$column['params']); else echo substr(strip_tags($row[$column['name']]),0,200); ?></td>
 <?php } ?>
 <td>
-<a class="btn btn-danger btn-xs pull-right" href="javascript:confirmDialog('<?php echo base_url().'admin/'.$this->router->fetch_class().'/delete/'.$scrudID.'/'.getTableKeys($keys,$row); ?>');"><span class="glyphicon glyphicon-remove"></span>&nbsp;Usuń</a>
+<a class="btn btn-danger btn-xs pull-right" href="javascript:confirmDialog('<?php echo base_url().$this->config->item('controllers_directory').$this->router->fetch_class().'/delete/'.$scrudID.'/'.getTableKeys($keys,$row); ?>');"><span class="glyphicon glyphicon-remove"></span>&nbsp;Usuń</a>
 </td>
 </tr>
 <?php }; ?>    
@@ -100,7 +100,7 @@ foreach($data as $key=>$row){ ?>
 <?php
 
 }
-elseif($this->uri->segment(3)=='add' || $this->uri->segment(3)=='edit'){
+elseif($this->uri->segment( $this->config->item('action_segment') )=='add' || $this->uri->segment( $this->config->item('action_segment') )=='edit'){
 
 $errors=(isset($errors) && $errors!='') ? $errors : '' ;    
 
@@ -263,7 +263,7 @@ if(form_error($field['name'])!='')
 <div class="row">
     <div class="col-md-12 center">
     <input class="btn btn-default" onclick="document.location.href='<?php echo $this->session->userdata('referer'); ?>'" type="button" value="Anuluj"/>
-    <input class="btn btn-primary" type="submit" name="send" value="<?php if($this->uri->segment(3)=='add') echo 'Dodaj'; else echo 'Zapisz'; ?>"/>
+    <input class="btn btn-primary" type="submit" name="send" value="<?php if($this->uri->segment( $this->config->item('action_segment') )=='add') echo 'Dodaj'; else echo 'Zapisz'; ?>"/>
     </div>
 </div>        
         
