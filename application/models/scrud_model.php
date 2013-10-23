@@ -134,8 +134,6 @@ public function getTableData($scrudID,$columns,$params,$search_terms,$search_val
      $this->db->limit($limit,$from);
      
      $query = $this->db->get();
-
-
      $data=array();
      
      foreach($query->result_array() as $row)
