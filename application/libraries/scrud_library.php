@@ -17,7 +17,7 @@ class scrud_library {
         $this->CI =& get_instance();
         $this->CI->load->model('scrud_model');
         $this->scrudID=$this->getScrudID();
-        $this->params=$this->CI->uri->uri_to_assoc(6);
+        $this->params=$this->CI->uri->uri_to_assoc(5);
         $this->limit=20;
         
         $this->form_data=NULL;
@@ -29,9 +29,9 @@ class scrud_library {
     public function renderTable(){
         $this->CI->session->set_userdata(array('referer'=>current_url()) );
 
-        if(isset($params['from']) && $params['from']!=''){
-            $from=(int)$params['from'];
-            unset($params['from']);
+        if(isset($this->params['from']) && $this->params['from']!=''){
+            $from=(int)$this->params['from'];
+            unset($this->params['from']);
         }
         else
             $from=0;
@@ -63,10 +63,10 @@ class scrud_library {
         $data=$this->CI->scrud_model->getTableData($this->scrudID,$cols,$this->params,$search_terms,$search_value,$this->limit,$from);
 
         $this->CI->load->library('pagination');
-        $config['base_url'] = base_url().$this->CI->router->fetch_class().'/view/'.$this->scrudID.'/from/';
+        $config['base_url'] = base_url().'admin/'.$this->CI->router->fetch_class().'/view/'.$this->scrudID.'/from/';
         $config['total_rows'] = $this->CI->scrud_model->countResults($this->scrudID);
         $config['per_page'] = $this->limit;
-        $config['uri_segment']=5;
+        $config['uri_segment']=6;
     
         $this->CI->pagination->initialize($config);
         $pagination=$this->CI->pagination->create_links();
