@@ -1,14 +1,14 @@
 <?php 
 
-$this->load->view('header'); 
+$this->load->view($this->config->item('views_directory').'header'); 
 
 
-if ($this->uri->segment(2,'view')=='view'){
+if ($this->uri->segment($this->config->item('action_segment'),'view')=='view'){
 ?>    
 
 
 <div class="row">
-<div class="col-md-12 center"><a href="<?php echo base_url(); ?>scrud_admin/add" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-plus"></span>&nbsp;Dodaj tabelę</a></div> 
+<div class="col-md-12 center"><a href="<?php echo base_url().$this->config->item('controllers_directory'); ?>scrud_admin/add" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-plus"></span>&nbsp;Dodaj tabelę</a></div> 
 </div>
 
 <br/>
@@ -32,12 +32,12 @@ if(is_array($data) && sizeof($data)>0)
 foreach($data as $row){ ?>
 <tr>
 <td>
-<a class="btn btn-success btn-xs pull-left" href="<?php echo base_url().$controller.'/edit/'.$row['scrudID']; ?>"><span class="glyphicon glyphicon-edit"></span>&nbsp;Edycja</a>
+<a class="btn btn-success btn-xs pull-left" href="<?php echo base_url().$this->config->item('controllers_directory').$controller.'/edit/'.$row['scrudID']; ?>"><span class="glyphicon glyphicon-edit"></span>&nbsp;Edycja</a>
 </td>
 <td style="text-align:center;"><?php echo $row['scrudID'];?></td>
 <td><?php echo $row['name'];?></td>
 <td>
-<a class="btn btn-danger btn-xs pull-right" href="javascript:confirmDialog('<?php echo base_url().$controller.'/delete/'.$row['scrudID']; ?>');"><span class="glyphicon glyphicon-remove"></span>&nbsp;Usuń</a>
+<a class="btn btn-danger btn-xs pull-right" href="javascript:confirmDialog('<?php echo base_url().$this->config->item('controllers_directory').$controller.'/delete/'.$row['scrudID']; ?>');"><span class="glyphicon glyphicon-remove"></span>&nbsp;Usuń</a>
 </td>
 </tr>
 <?php }; ?>    
@@ -50,7 +50,7 @@ foreach($data as $row){ ?>
 <?php
 
 }
-elseif($this->uri->segment(2)=='add' || $this->uri->segment(2)=='edit'){ ?>
+elseif($this->uri->segment( $this->config->item('action_segment') )=='add' || $this->uri->segment( $this->config->item('action_segment') )=='edit'){ ?>
 <div class="form">
 <form method="post" action="<?php echo current_url();?>" class="form-horizontal" role="form">
     
@@ -67,7 +67,7 @@ elseif($this->uri->segment(2)=='add' || $this->uri->segment(2)=='edit'){ ?>
     <?php
     if(isset($columns['columnID']))
         for($i=0;$i<sizeof($columns['columnID']);$i++)
-            $this->load->view('scrud_actions',array('action'=>'add_column','data'=>array('columnID'=>$columns['columnID'][$i], 'column_name'=>$columns['column_name'][$i], 'column_description'=>$columns['column_description'][$i],'column_align'=>$columns['column_align'][$i], 'column_width'=>$columns['column_width'][$i], 'column_params'=>$columns['column_params'][$i]    ) ) );
+            $this->load->view($this->config->item('views_directory').'scrud_actions',array('action'=>'add_column','data'=>array('columnID'=>$columns['columnID'][$i], 'column_name'=>$columns['column_name'][$i], 'column_description'=>$columns['column_description'][$i],'column_align'=>$columns['column_align'][$i], 'column_width'=>$columns['column_width'][$i], 'column_params'=>$columns['column_params'][$i]    ) ) );
    ?>
 </div>  
 <a href="javascript:addColumn();" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;Dodaj kolumnę</a>    
@@ -81,7 +81,7 @@ elseif($this->uri->segment(2)=='add' || $this->uri->segment(2)=='edit'){ ?>
     <?php
     if(isset($keys['keyID']))
         for($i=0;$i<sizeof($keys['keyID']);$i++)
-            $this->load->view('scrud_actions',array('action'=>'add_key','data'=>array('keyID'=>$keys['keyID'][$i], 'key_name'=>$keys['key_name'][$i]) ) );
+            $this->load->view($this->config->item('views_directory').'scrud_actions',array('action'=>'add_key','data'=>array('keyID'=>$keys['keyID'][$i], 'key_name'=>$keys['key_name'][$i]) ) );
     ?>    
 </div>
 <a href="javascript:addKey();" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;Dodaj klucz</a>     
@@ -95,7 +95,7 @@ elseif($this->uri->segment(2)=='add' || $this->uri->segment(2)=='edit'){ ?>
     <?php
     if(isset($searchs['searchID']))
         for($i=0;$i<sizeof($searchs['searchID']);$i++)
-            $this->load->view('scrud_actions',array('action'=>'add_search','data'=>array('searchID'=>$searchs['searchID'][$i], 'search_name'=>$searchs['search_name'][$i], 'search_type'=>$searchs['search_type'][$i] ) ) );
+            $this->load->view($this->config->item('views_directory').'scrud_actions',array('action'=>'add_search','data'=>array('searchID'=>$searchs['searchID'][$i], 'search_name'=>$searchs['search_name'][$i], 'search_type'=>$searchs['search_type'][$i] ) ) );
     ?>        
 </div>
 <a href="javascript:addSearch();" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;Dodaj pole wyszukiwania</a>     
@@ -109,7 +109,7 @@ elseif($this->uri->segment(2)=='add' || $this->uri->segment(2)=='edit'){ ?>
     <?php
     if(isset($fields['fieldID']))
         for($i=0;$i<sizeof($fields['fieldID']);$i++)
-            $this->load->view('scrud_actions',array('action'=>'add_field','data'=>array('fieldID'=>$fields['fieldID'][$i], 'field_name'=>$fields['field_name'][$i],'field_label'=>$fields['field_label'][$i],'field_type'=>$fields['field_type'][$i],'field_size'=>$fields['field_size'][$i],'field_default'=>$fields['field_default'][$i],'field_mysql_function'=>$fields['field_mysql_function'][$i], 'field_data'=>$fields['field_data'][$i], 'field_rules'=>$fields['field_rules'][$i]  ) ) );
+            $this->load->view($this->config->item('views_directory').'scrud_actions',array('action'=>'add_field','data'=>array('fieldID'=>$fields['fieldID'][$i], 'field_name'=>$fields['field_name'][$i],'field_label'=>$fields['field_label'][$i],'field_type'=>$fields['field_type'][$i],'field_size'=>$fields['field_size'][$i],'field_default'=>$fields['field_default'][$i],'field_mysql_function'=>$fields['field_mysql_function'][$i], 'field_data'=>$fields['field_data'][$i], 'field_rules'=>$fields['field_rules'][$i]  ) ) );
     ?>            
 </div>
 <a href="javascript:addField();" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;Dodaj pole</a>         
@@ -120,7 +120,7 @@ elseif($this->uri->segment(2)=='add' || $this->uri->segment(2)=='edit'){ ?>
 <div class="row">
     <div class="col-md-12 center">
     <input class="btn btn-default" onclick="document.location.href='<?php echo $this->session->userdata('referer'); ?>'" type="button" value="Anuluj"/>
-    <input class="btn btn-primary" type="submit" name="send" value="<?php if($this->uri->segment(2)=='add') echo 'Dodaj'; else echo 'Zapisz'; ?>"/>
+    <input class="btn btn-primary" type="submit" name="send" value="<?php if($this->uri->segment( $this->config->item('action_segment') )=='add') echo 'Dodaj'; else echo 'Zapisz'; ?>"/>
     </div>
 </div>
     
@@ -129,4 +129,4 @@ elseif($this->uri->segment(2)=='add' || $this->uri->segment(2)=='edit'){ ?>
     
 <?php } 
 
-$this->load->view('footer'); ?>
+$this->load->view($this->config->item('views_directory').'footer'); ?>

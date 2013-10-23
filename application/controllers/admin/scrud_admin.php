@@ -8,6 +8,7 @@ public function __construct() {
     parent::__construct();
     $this->load->model('scrud_model');
     $this->load->helper('form');
+    $this->load->config('scrud');
 }
 
 public function index(){
@@ -19,7 +20,7 @@ public function view(){
     $this->session->set_userdata( array('referer'=>current_url() ) );
     $controller=$this->router->fetch_class();
     $data=$this->scrud_model->getAdminTables();
-    $this->load->view('scrud_admin',array('action'=>NULL, 'controller'=>$controller,'data'=>$data) );
+    $this->load->view($this->config->item('views_directory').'scrud_admin',array('action'=>NULL, 'controller'=>$controller,'data'=>$data) );
 }
 
 public function add(){
@@ -33,7 +34,7 @@ public function add(){
     
     if ($this->form_validation->run() == FALSE){      
         $data=$this->prepareForm();
-        $this->load->view('scrud_admin',array('action'=>NULL, 'table_name'=>$data['table_name'],'columns'=>$data['columns'],'keys'=>$data['keys'],'searchs'=>$data['searchs'], 'fields'=>$data['fields']) );
+        $this->load->view($this->config->item('views_directory').'scrud_admin',array('action'=>NULL, 'table_name'=>$data['table_name'],'columns'=>$data['columns'],'keys'=>$data['keys'],'searchs'=>$data['searchs'], 'fields'=>$data['fields']) );
     }
     else{
         $scrudID=$this->scrud_model->insertScrudData('scrud_tables',array('name'=>$this->input->post('table_name'),'description'=>$this->input->post('table_description') ));
@@ -98,18 +99,18 @@ public function add(){
 public function edit(){
     $this->load->library('form_validation');
     
-    if($this->uri->segment(3)>0){
+    if($this->uri->segment( $this->config->item('scrudID_segment') )>0){
        
         $this->form_validation->set_rules('table_name', 'Nazwa tabeli', 'required');
         $this->form_validation->set_rules('column_name[]', 'Nazwa kolumny', 'required');
         $this->form_validation->set_rules('key_name[]', 'Nazwa klucza', 'required');
         $this->form_validation->set_rules('field_name[]', 'Nazwa pola', 'required');
         
-        $scrudID=(int)$this->uri->segment(3);
+        $scrudID=(int)$this->uri->segment( $this->config->item('scrudID_segment') );
         
         if ($this->form_validation->run() == FALSE){      
             $data=$this->prepareForm($scrudID);
-            $this->load->view('scrud_admin',array('scrudID'=>$scrudID,'action'=>NULL, 'table_name'=>$data['table_name'],'table_description'=>$data['table_description'], 'columns'=>$data['columns'],'keys'=>$data['keys'],'searchs'=>$data['searchs'], 'fields'=>$data['fields']) );
+            $this->load->view($this->config->item('views_directory').'scrud_admin',array('scrudID'=>$scrudID,'action'=>NULL, 'table_name'=>$data['table_name'],'table_description'=>$data['table_description'], 'columns'=>$data['columns'],'keys'=>$data['keys'],'searchs'=>$data['searchs'], 'fields'=>$data['fields']) );
     }
     else{
         
@@ -139,12 +140,11 @@ public function edit(){
         
         if(!empty($keyID) && $scrudID>0 )
             foreach($keyID as $k => $value)
-                if($value>0){ echo '*'.$value.'* zapisuje'.'<br/>';
+                if($value>0)
                     $this->scrud_model->updateScrudData('scrud_keys',array('name'=>$key_name[$k]),array('scrudID'=>$scrudID,'keyID'=>$keyID[$k]) );
-                }else{
-                    echo '*'.$value.'* dodaje'.'<br/>';
+                else
                     $this->scrud_model->insertScrudData('scrud_keys',array('scrudID'=>$scrudID,'name'=>$key_name[$k]) );
-                }
+                
         // ---------------------------------------------------------------------------------------        
         
         
@@ -195,7 +195,7 @@ public function edit(){
 private function prepareForm($scrudID=NULL){    
     $data=array();
     
-    if( !$this->input->post() && $this->uri->segment(2)=='edit'){
+    if( !$this->input->post() && $this->uri->segment( $this->config->item('action_segment') )=='edit'){
         $data['table_name']=$this->scrud_model->getTableName($scrudID);
         $data['table_description']=$this->scrud_model->getTableDescription($scrudID);
         $data['columns']=$this->prepareData('column',$this->scrud_model->getColumns($scrudID));
@@ -267,7 +267,7 @@ public function add_field(){
 
 
 public function delete(){
-    $this->scrud_model->deleteAdminData($this->uri->segment(3,0));
+    $this->scrud_model->deleteAdminData($this->uri->segment( $this->config->item('scrudID_segment'), 0));
     redirect($this->session->userdata('referer'));
 }
     
