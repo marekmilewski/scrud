@@ -22,7 +22,7 @@ class example extends CI_Controller{
         
         if( !$this->scrud_library->isValidForm() ){
             $scrud_data=$this->scrud_library->renderForm();
-            $this->load->view('example',array('scrud_data'=>$scrud_data ));
+            $this->load->view('admin/example',array('scrud_data'=>$scrud_data ));
         }
         else{
             $data=$this->scrud_library->getFormData();
@@ -39,7 +39,7 @@ class example extends CI_Controller{
         
         if( !$this->scrud_library->isValidForm() ){
             $scrud_data=$this->scrud_library->renderForm();
-            $this->load->view('example',array('scrud_data'=>$scrud_data ));
+            $this->load->view('admin/example',array('scrud_data'=>$scrud_data ));
         }
         else{
             $data=$this->scrud_library->getFormData();

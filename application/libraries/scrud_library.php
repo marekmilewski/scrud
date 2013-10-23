@@ -41,7 +41,7 @@ class scrud_library {
         $columns=$this->CI->scrud_model->getColumns($this->scrudID);
         $keys=$this->CI->scrud_model->getKeys($this->scrudID);
         $search_terms=$this->CI->scrud_model->getSearch($this->scrudID);        
-
+        
         if(!$this->CI->input->post('search')){
             $search_terms=NULL;
             $search_value=NULL;
@@ -61,7 +61,7 @@ class scrud_library {
     
     
         $data=$this->CI->scrud_model->getTableData($this->scrudID,$cols,$this->params,$search_terms,$search_value,$this->limit,$from);
-    
+
         $this->CI->load->library('pagination');
         $config['base_url'] = base_url().$this->CI->router->fetch_class().'/view/'.$this->scrudID.'/from/';
         $config['total_rows'] = $this->CI->scrud_model->countResults($this->scrudID);
@@ -70,7 +70,6 @@ class scrud_library {
     
         $this->CI->pagination->initialize($config);
         $pagination=$this->CI->pagination->create_links();
-
         return $this->CI->load->view('admin/scrud',array('columns'=>$columns,'keys'=>$keys,'search'=>$search_terms,'data'=>$data,'description'=>$description,'pagination'=>$pagination,'scrudID'=>$this->scrudID ),true );
     }
     
@@ -152,7 +151,7 @@ class scrud_library {
         else
             $data=NULL;
 
-        return $this->CI->load->view('scrud',array('fields'=>$this->form_fields, 'data'=>$data, 'errors'=>$errors ),true );
+        return $this->CI->load->view('admin/scrud',array('fields'=>$this->form_fields, 'data'=>$data, 'errors'=>$errors ),true );
     }
     
     
@@ -178,7 +177,7 @@ class scrud_library {
     
     public function deleteRecord(){
         $keys=$this->getKeysFromURL();
-        $this->scrud_model->deleteRecord($this->scrudID,$keys);
+        $this->CI->scrud_model->deleteRecord($this->scrudID,$keys);
     }
     
     
