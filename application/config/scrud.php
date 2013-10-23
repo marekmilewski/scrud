@@ -3,11 +3,12 @@
 
 $config['controllers_directory']='admin/';
 $config['views_directory']='admin/';
-
+$config['action_segment']=2;
+$config['scrudID_segment']=3;
+$config['params_start_segment']=5;
 
 
 
 $config['scrud_limit']=20;
-
 
 ?>

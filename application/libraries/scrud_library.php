@@ -17,8 +17,9 @@ class scrud_library {
         $this->CI =& get_instance();
         $this->CI->load->model('scrud_model');
         $this->scrudID=$this->getScrudID();
-        $this->params=$this->CI->uri->uri_to_assoc(5);
-        $this->limit=20;
+        $this->params=$this->CI->uri->uri_to_assoc( $this->CI->config->item('params_start_segment') );
+        $this->CI->config->load('scrud');
+        
         
         $this->form_data=NULL;
         $this->upload_errors=NULL;
@@ -65,8 +66,8 @@ class scrud_library {
         $this->CI->load->library('pagination');
         $config['base_url'] = base_url().'admin/'.$this->CI->router->fetch_class().'/view/'.$this->scrudID.'/from/';
         $config['total_rows'] = $this->CI->scrud_model->countResults($this->scrudID);
-        $config['per_page'] = $this->limit;
-        $config['uri_segment']=6;
+        $config['per_page'] = $this->CI->config->item('scrud_limit');
+        $config['uri_segment']=$this->CI->config->item('params_start_segment')-1;
     
         $this->CI->pagination->initialize($config);
         $pagination=$this->CI->pagination->create_links();
@@ -139,7 +140,7 @@ class scrud_library {
         
         $errors=($this->form_upload_errors!='') ? NULL : $this->form_upload_errors ;
         
-        if($this->CI->uri->segment(2)=='edit'){
+        if($this->CI->uri->segment( $this->CI->config->item('action_segment') )=='edit'){
             $select=array();
             
             foreach($this->form_fields as $field)
@@ -186,7 +187,7 @@ class scrud_library {
     
     
     private function getKeysFromURL(){
-        $keys=$this->CI->uri->uri_to_assoc(5);
+        $keys=$this->CI->uri->uri_to_assoc( $this->CI->config->item('params_start_segment') );
         if(isset($keys['from']) && $keys['from']!='')
             unset($keys['from']);    
     
@@ -194,7 +195,7 @@ class scrud_library {
     }
 
     private function getScrudID(){
-        $this->scrudID=$this->CI->uri->segment(4);
+        $this->scrudID=$this->CI->uri->segment( $this->CI->config->item('scrudID_segment') );
         if(!$this->scrudID)
             die('No scrudID !!!');
         else
